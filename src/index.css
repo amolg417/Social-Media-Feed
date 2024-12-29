@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .h-webkit-fill {
+    height: -webkit-fill-available;
+  }
+
+  /* FONT CLAMPS */
+  .fs-1 {
+    font-size: (0.0048828125rem, 0rem + 0.0781vw, 0.48828125rem);
+  }
+  .fs-2 {
+    font-size: clamp(0.009765625rem, 0rem + 0.1563vw, 0.9765625rem);
+  }
+  .fs-3 {
+    font-size: clamp(0.0146484375rem, 0rem + 0.2344vw, 1.46484375rem);
+  }
+  .fs-4 {
+    font-size: clamp(0.01953125rem, 0rem + 0.3125vw, 1.953125rem);
+  }
+  .fs-5 {
+    font-size: clamp(0.0244140625rem, 0rem + 0.3906vw, 2.44140625rem);
+  }
+  .fs-6 {
+    font-size: clamp(0.029296875rem, 0rem + 0.4688vw, 2.9296875rem);
+  }
+  .fs-7 {
+    font-size: clamp(0.0341796875rem, 0rem + 0.5469vw, 3.41796875rem);
+  }
+  .fs-8 {
+    font-size: clamp(0.0390625rem, 0rem + 0.625vw, 3.90625rem);
+  }
+  .fs-9 {
+    font-size: clamp(0.0439453125rem, 0rem + 0.7031vw, 4.39453125rem);
+  }
+  .fs-10 {
+    font-size: clamp(0.048828125rem, 0rem + 0.7813vw, 4.8828125rem);
+  }
+  .fs-11 {
+    font-size: clamp(0.0537109375rem, 0rem + 0.8594vw, 5.37109375rem);
+  }
+  .fs-12 {
+    font-size: clamp(0.05859375rem, 0rem + 0.9375vw, 5.859375rem);
+  }
+  .fs-13 {
+    font-size: clamp(0.0634765625rem, 0rem + 1.0156vw, 6.34765625rem);
+  }
+  .fs-14 {
+    font-size: clamp(0.068359375rem, 0rem + 1.0938vw, 6.8359375rem); 
+  }
+  .fs-15 {
+    font-size: clamp(0.0732421875rem, 0rem + 1.1719vw, 7.32421875rem);
+  }
+  .fs-16 {
+    font-size: clamp(0.078125rem, 0rem + 1.25vw, 7.8125rem);
+  }
+  .fs-17 {
+    font-size: clamp(0.0830078125rem, 0rem + 1.3281vw, 8.30078125rem);
+  }
+  .fs-18 {
+    font-size: clamp(0.087890625rem, 0rem + 1.4063vw, 8.7890625rem);
+  }
+  .fs-19 {
+    font-size: clamp(0.0927734375rem, 0rem + 1.4844vw, 9.27734375rem);
+  }
+  .fs-20 {
+    font-size: clamp(0.09765625rem, 0rem + 1.5625vw, 9.765625rem);
+  }
+  .fs-21 {
+    font-size: clamp(0.1025390625rem, 0rem + 1.6406vw, 10.25390625rem);
+  }
+  .fs-22 {
+    font-size: clamp(0.107421875rem, 0rem + 1.7188vw, 10.7421875rem);
+  }
+  .fs-23 {
+    font-size: clamp(0.1123046875rem, 0rem + 1.7969vw, 11.23046875rem);
+  }
+  .fs-24 {
+    font-size: clamp(0.1171875rem, 0rem + 1.875vw, 11.71875rem);
+  }
+  .fs-25 {
+    font-size: clamp(0.1220703125rem, 0rem + 1.9531vw, 12.20703125rem);
+  }
+  .fs-26 {
+    font-size: clamp(0.126953125rem, 0rem + 2.0313vw, 12.6953125rem);
+  }
+  .fs-27 {
+    font-size: clamp(0.1318359375rem, 0rem + 2.1094vw, 13.18359375rem);
+  }
+  .fs-28 {
+    font-size: clamp(0.13671875rem, 0rem + 2.1875vw, 13.671875rem);
+  }
+  .fs-29 {
+    font-size: clamp(0.1416015625rem, 0rem + 2.2656vw, 14.16015625rem);
+  }
+  .fs-30 {
+    font-size: clamp(0.146484375rem, 0rem + 2.3438vw, 14.6484375rem);
+  }
+  .fs-32 {
+    font-size: clamp(0.15625rem, 0rem + 2.5vw, 15.625rem);
+  }
+  .fs-34 {
+    font-size: clamp(0.166015625rem, 0rem + 2.6563vw, 16.6015625rem);
+  }
+  .fs-36 {
+    font-size: clamp(0.17578125rem, 0rem + 2.8125vw, 17.578125rem);
+  }
+  .fs-38 {
+    font-size: clamp(0.185546875rem, 0rem + 2.9688vw, 18.5546875rem);
+  }
+  .fs-40 {
+    font-size: clamp(0.1953125rem, 0rem + 3.125vw, 19.53125rem);
+  }
+  .fs-48 {
+    font-size: clamp(0.234375rem, 0rem + 3.75vw, 23.4375rem);
+  }
+  .fs-64 {
+    font-size: clamp(0.3125rem, 0rem + 5vw, 31.25rem);
+  }
+  .fs-66 {
+    font-size: clamp(0.28646875rem, 0rem + 4.5833vw, 28.646rem);
+  }
+  .fs-68 {
+    font-size: clamp(0.29515rem, 0rem + 4.7222vw, 29.5140625rem);
+  }
+  .fs-70 {
+    font-size: clamp(0.30383125rem, 0rem + 4.8611vw, 30.382125rem);
+  }
+  .fs-72 {
+    font-size: clamp(0.3125125rem, 0rem + 5vw, 31.2501875rem);
+  }
+  .fs-74 {
+    font-size: clamp(0.32119375rem, 0rem + 5.1389vw, 32.11825rem);
+  }
+  .fs-76 {
+    font-size: clamp(0.329875rem, 0rem + 5.2778vw, 32.9863125rem);
+  }
+  .fs-78 {
+    font-size: clamp(0.33855625rem, 0rem + 5.4167vw, 33.854375rem);
+  }
+  .fs-80 {
+    font-size: clamp(0.3472375rem, 0rem + 5.5556vw, 34.7224375rem);
+  }
+}
