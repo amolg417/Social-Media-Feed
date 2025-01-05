@@ -1,4 +1,8 @@
-const LikeIcon = ({ color = "red" }: { color: string }) => {
+type LikeIconProps={
+  color:string,
+  width?:string
+}
+const LikeIcon = ({ color = "red",width="w-[15%]" }: LikeIconProps) => {
   return (
     <svg
       width="20"
@@ -6,7 +10,7 @@ const LikeIcon = ({ color = "red" }: { color: string }) => {
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-[15%]"
+      className={width}
     >
       <path
         fill-rule="evenodd"
