@@ -1,5 +1,6 @@
+import user from "../../assets/Profile/png/user.jpg"
 const UserAvatar = () => {
-  return <img src="src\assets\Profile\png\user.jpg" alt="UserAvatar" className="w-full rounded-full object-cover aspect-square"/>;
+  return <img src={user} alt="UserAvatar" className="w-full rounded-full object-cover aspect-square"/>;
 };
 
 export default UserAvatar;

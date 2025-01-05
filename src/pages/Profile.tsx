@@ -1,9 +1,36 @@
 import React from "react";
 import EditPencil from "../components/Profile/EditPencil";
 import UserAvatar from "../components/Profile/UserAvatar";
-import { Outlet } from "react-router-dom";
-
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import leftArrow from "../assets/Profile/svg/SmLeft.svg";
 const Profile = () => {
+  const location = useLocation();
+  const navigate=useNavigate()
+  let editpage = <></>;
+  let editpencil = <></>;
+  let profileEdit = <></>;
+  switch (location.pathname) {
+    case "/profile/edit":
+      editpage = (
+        <span className="text-xl text-[#fff] text-nowrap font-[700]">
+          Edit Profile
+        </span>
+      );
+      editpencil = (
+        <div className="w-6 absolute right-3 bottom-3">
+          <EditPencil />
+        </div>
+      );
+      profileEdit = (
+        <div className="w-8 absolute right-0 bottom-0">
+          <EditPencil />
+        </div>
+      );
+      break;
+
+    default:
+      break;
+  }
   return (
     <div className="w-full h-full">
       <div className="w-full h-[20%] relative">
@@ -12,28 +39,18 @@ const Profile = () => {
           alt="cover-image"
           className="w-full h-full object-cover rounded-bl-lg rounded-br-lg"
         />
-        <div className="flex items-center gap-x-[4%] absolute top-5 left-3 z-100">
-          <img
-            src="src\assets\Profile\svg\SmLeft.svg"
-            alt="left-arrow"
-            className="w-[22%]"
-          />
-          <span className="text-xl text-[#fff] text-nowrap font-[700]">
-            Edit Profile
-          </span>
+        <div className="h-[10%] flex items-center gap-x-[4%] absolute top-5 left-3 z-100">
+          <img src={leftArrow} alt="left-arrow" onClick={()=>navigate(location.pathname==="/profile"?"/feed":"/profile")} />
+          {editpage}
         </div>
-        <div className="w-6 absolute right-3 bottom-3">
-          <EditPencil />
-        </div>
+        {editpencil}
         <div className="w-[25%] absolute bottom-[-30%] left-4">
           <UserAvatar />
-          <div className="w-8 absolute right-0 bottom-0">
-            <EditPencil />
-          </div>
+          {profileEdit}
         </div>
       </div>
       <div className="w-full h-[80%] p-[4%]">
-        <Outlet/>
+        <Outlet />
       </div>
     </div>
   );
