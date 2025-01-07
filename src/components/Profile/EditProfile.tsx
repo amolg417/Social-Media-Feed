@@ -1,4 +1,5 @@
 import React from "react";
+import FooterButton from "./FooterButton";
 
 const EditProfile = () => {
   return (
@@ -25,7 +26,7 @@ const EditProfile = () => {
           />
         </div>
       </div>
-      <button className="w-full py-[3%] bg-[#000] rounded-full text-[#fff] text-base font-[500]">SAVE</button>
+      <FooterButton label="SAVE"/>
     </div>
   );
 };
