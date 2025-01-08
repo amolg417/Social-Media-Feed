@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import image from "../../assets/Post/svg/image.svg";
 import video from "../../assets/Post/svg/video.svg";
 import camera from "../../assets/Post/svg/camera.svg";
@@ -41,7 +41,7 @@ const MediaSelection = () => {
   ];
   const [mediaItems, setMediaItems] = useState(media);
   return (
-    <div className="w-full h-[53%] pt-[5%] flex flex-col gap-y-3">
+    <div className="w-full pt-[5%] flex flex-col gap-y-3">
       {mediaItems?.map((item) => {
         if (item.is_showing) {
           return (

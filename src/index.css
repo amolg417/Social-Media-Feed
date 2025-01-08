@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 
-
+.image-container>div>div>div>div>div{
+  height: 100% !important;
+}
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
