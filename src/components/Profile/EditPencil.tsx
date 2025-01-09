@@ -1,4 +1,3 @@
-import React from "react";
 import pencil from "../../assets/Profile/svg/Pencil.svg"
 const EditPencil = () => {
   return (

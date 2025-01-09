@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import image from "../../assets/Post/svg/image.svg";
 import video from "../../assets/Post/svg/video.svg";
 import camera from "../../assets/Post/svg/camera.svg";
 import folder from "../../assets/Post/svg/folder.svg";
-const MediaSelection = () => {
+type MediaSelectionProps={
+  toggleCamera:()=>void
+}
+const MediaSelection = ({toggleCamera}:MediaSelectionProps) => {
   //   const handleFileType = ;
   const media = [
     {
@@ -36,7 +39,7 @@ const MediaSelection = () => {
       label: "Camera",
       img: camera,
       is_showing: true,
-      onClickHandler:()=>{}
+      onClickHandler:toggleCamera
     },
   ];
   const [mediaItems, setMediaItems] = useState(media);

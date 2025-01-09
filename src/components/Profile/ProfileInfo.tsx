@@ -1,4 +1,3 @@
-import React from "react";
 import MyPost from "./MyPost";
 import plus from "../../assets/Profile/svg/Plus.svg";
 import { useNavigate } from "react-router-dom";

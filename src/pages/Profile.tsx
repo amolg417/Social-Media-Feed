@@ -1,4 +1,3 @@
-import React from "react";
 import EditPencil from "../components/Profile/EditPencil";
 import UserAvatar from "../components/Profile/UserAvatar";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";

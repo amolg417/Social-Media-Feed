@@ -1,5 +1,6 @@
 import CopyLink from "./CopyLink";
 import Channels from "./Channels";
+import closeIcon from "../../assets/Feed/svg/Close.svg"
 type ShareModalProps={
     handleShareModal:(newValue:boolean)=>void
 }
@@ -13,7 +14,7 @@ const ShareModal = ({handleShareModal}:ShareModalProps) => {
         <div className="header w-full flex items-center justify-between">
           <h4 className="text-[22px] text-[#000] font-[700]">Share Post</h4>
           <img
-            src="src\assets\Feed\svg\Close.svg"
+            src={closeIcon}
             alt="close-icon"
             className="w-[10%]"
             onClick={()=>handleShareModal(false)}
