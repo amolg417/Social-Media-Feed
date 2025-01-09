@@ -1,14 +1,14 @@
 import PostMediaContainer from "./PostMediaContainer";
 import PostDescripton from "./PostDescripton";
-import PostFooter from "./PostFooter";
+// import PostFooter from "./PostFooter"; 
 import PostHeader from "./PostHeader";
 import { FastAverageColor } from "fast-average-color";
 import { useEffect, useState } from "react";
 type PostProps = {
   media: { type: "image" | "video"; url: string };
-  handleShareModal: (newVal: boolean) => void;
+  handleShareModal?: (newVal: boolean) => void;
 };
-const Post = ({ media, handleShareModal }: PostProps) => {
+const Post = ({ media }: PostProps) => {
   const [bgColor, setBgColor] = useState<string | null>(null);
 
   const lightenColor = (rgba: string): string => {
@@ -87,7 +87,7 @@ const Post = ({ media, handleShareModal }: PostProps) => {
       <PostHeader />
       <PostDescripton />
       <PostMediaContainer />
-      <PostFooter handleShareModal={handleShareModal} />
+      {/* <PostFooter handleShareModal={handleShareModal} /> */}
     </div>
   );
 };

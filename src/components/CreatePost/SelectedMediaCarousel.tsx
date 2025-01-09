@@ -1,7 +1,7 @@
 import Carousel from "react-material-ui-carousel";
 import image from "../../assets/Post/svg/image.svg";
 import deleteIcon from "../../assets/Post/svg/delete.svg";
-import VideoPlayer from "../Feed/VideoPlayer";
+// import VideoPlayer from "../Feed/VideoPlayer";
 const SelectedMediaCarousel = () => {
   const items = [
     {

@@ -1,5 +1,5 @@
 import ImageCarousel from "./ImageCarousel"
-import VideoPlayer from "./VideoPlayer"
+// import VideoPlayer from "./VideoPlayer"
 
 const PostMediaContainer = () => {
   return (

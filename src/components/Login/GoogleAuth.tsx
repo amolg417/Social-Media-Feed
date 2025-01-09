@@ -1,5 +1,6 @@
 import { useGoogleLogin } from "@react-oauth/google";
-
+import logo from "../../assets/Login/png/logo.png"
+import google from"../../assets/Login/svg/google.svg"
 const GoogleAuth = () => {
   const login = useGoogleLogin({
     onSuccess: (tokenResponse) => {
@@ -11,7 +12,7 @@ const GoogleAuth = () => {
     <div className="w-full h-[35%] flex flex-col items-center bg-[#fff] absolute left-0 bottom-0 z-100 rounded-t-[63px] pt-[10%] font-[karla]">
       <div className="logo-section flex items-center justify-center gap-x-[1%]">
         <img
-          src="src\assets\Login\png\logo.png"
+          src={logo}
           alt="logo"
           className="w-[22%] flex-shrink-0 flex-grow-0"
         />
@@ -24,7 +25,7 @@ const GoogleAuth = () => {
         className="flex items-center justify-between gap-x-[5%] px-[5.5%] py-[3%] bg-[#292929] rounded-full"
         onClick={() => login()}
       >
-        <img src="src\assets\Login\svg\google.svg" alt="" />
+        <img src={google} alt="" />
         <span className="text-base text-[#fff] font-[700] text-nowrap">
           Continue with Google
         </span>
