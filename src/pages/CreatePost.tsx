@@ -4,6 +4,7 @@ import CameraSection from "../components/CreatePost/CameraSection";
 import SelectedMediaCarousel from "../components/CreatePost/SelectedMediaCarousel";
 import FooterButton from "../components/Profile/FooterButton";
 import MediaSelection from "../components/CreatePost/MediaSelection";
+import ReviewImage from "../components/CreatePost/ReviewImage";
 
 const CreatePost = () => {
   const [useCamera,setUseCamera]=useState(false)
