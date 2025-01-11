@@ -1,13 +1,14 @@
 import { useCallback, useState } from "react";
 import leftArrow from "../assets/Post/svg/BlackLefttArraw.svg";
 import CameraSection from "../components/CreatePost/CameraSection";
-import SelectedMediaCarousel from "../components/CreatePost/SelectedMediaCarousel";
+// import SelectedMediaCarousel from "../components/CreatePost/SelectedMediaCarousel";
 import FooterButton from "../components/Profile/FooterButton";
 import MediaSelection from "../components/CreatePost/MediaSelection";
-import ReviewImage from "../components/CreatePost/ReviewImage";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const [useCamera,setUseCamera]=useState(false)
+  const navigate=useNavigate()
   const toggleCamera=useCallback(()=>{
     setUseCamera(prev=>!prev)
   },[])
@@ -19,6 +20,7 @@ const CreatePost = () => {
           src={leftArrow}
           alt="leftArrow"
           className="w-[5%] cursor-pointer"
+          onClick={()=>navigate("/feed")}
         />
         <span className="font-[800] text-[#000] text-xl">New Post</span>
       </div>
