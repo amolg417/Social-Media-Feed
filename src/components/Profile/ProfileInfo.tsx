@@ -1,6 +1,7 @@
 import MyPost from "./MyPost";
-import plus from "../../assets/Profile/svg/Plus.svg";
 import { useNavigate } from "react-router-dom";
+import CreatePostButton from "../CreatePost/CreatePostButton";
+
 const ProfileInfo = () => {
   let navigate = useNavigate();
   return (
@@ -25,9 +26,7 @@ const ProfileInfo = () => {
       <div className="w-full h-[78%]">
         <h5 className="text-lg font-[Karla] font-[600] mb-[1%]">My Posts</h5>
         <div className="w-full h-[93%] flex justify-between flex-wrap gap-[4.5%] overflow-y-auto no-scrollbar relative">
-          <button className="w-[12%] aspect-square flex items-center justify-center rounded-full bg-[#000] fixed bottom-[2.75rem] right-[1.75rem] z-30 shadow-2xl">
-            <img src={plus} alt="plus" className="w-[40%]" />
-          </button>
+          <CreatePostButton path="/post"/>
           <MyPost />
           <MyPost />
           <MyPost />
