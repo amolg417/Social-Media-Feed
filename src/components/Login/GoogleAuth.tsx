@@ -1,13 +1,12 @@
-import { useGoogleLogin } from "@react-oauth/google";
 import logo from "../../assets/Login/png/logo.png"
 import google from"../../assets/Login/svg/google.svg"
+import {auth,googleProvider} from "../../congif/firebase"
+import {signInWithPopup} from "firebase/auth"
 const GoogleAuth = () => {
-  const login = useGoogleLogin({
-    onSuccess: (tokenResponse) => {
-      console.log("Access Token:", tokenResponse.access_token);
-    },
-    onError: () => console.error("Login Failed"),
-  });
+
+  const login = ()=>{
+    signInWithPopup(auth,googleProvider)
+  }
   return (
     <div className="w-full h-[35%] flex flex-col items-center bg-[#fff] absolute left-0 bottom-0 z-100 rounded-t-[63px] pt-[10%] font-[karla]">
       <div className="logo-section flex items-center justify-center gap-x-[1%]">

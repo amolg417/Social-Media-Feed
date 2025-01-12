@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import image from "../../assets/Post/svg/image.svg";
 import video from "../../assets/Post/svg/video.svg";
 import camera from "../../assets/Post/svg/camera.svg";
 import folder from "../../assets/Post/svg/folder.svg";
-type MediaSelectionProps={
-  toggleCamera:()=>void
-}
-const MediaSelection = ({toggleCamera}:MediaSelectionProps) => {
-  //   const handleFileType = ;
+type MediaSelectionProps = {
+  toggleCamera: () => void;
+};
+const MediaSelection = ({ toggleCamera }: MediaSelectionProps) => {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const media = [
     {
       label: "Choose the file",
@@ -27,19 +27,23 @@ const MediaSelection = ({toggleCamera}:MediaSelectionProps) => {
       label: "Photos",
       img: image,
       is_showing: false,
-      onClickHandler:()=>{}
+      onClickHandler: () => {
+        fileInputRef.current?.click();
+      },
     },
     {
       label: "Videos",
       img: video,
       is_showing: false,
-      onClickHandler:()=>{}
+      onClickHandler: () => {
+        fileInputRef.current?.click();
+      },
     },
     {
       label: "Camera",
       img: camera,
       is_showing: true,
-      onClickHandler:toggleCamera
+      onClickHandler: toggleCamera,
     },
   ];
   const [mediaItems, setMediaItems] = useState(media);
@@ -48,11 +52,22 @@ const MediaSelection = ({toggleCamera}:MediaSelectionProps) => {
       {mediaItems?.map((item) => {
         if (item.is_showing) {
           return (
-            <div key={item.label} className="flex items-center gap-x-1 cursor-pointer" onClick={item.onClickHandler}>
+            <div
+              key={item.label}
+              className="flex items-center gap-x-1 cursor-pointer"
+              onClick={item.onClickHandler}
+            >
+              <input
+                type="file"
+                name="Media"
+                className="hidden"
+                accept="image/*,video/*"
+                ref={fileInputRef}
+              />
               <img src={item.img} alt={item.label} className="w-[5%]" />
-              <span className="text-sm text-[#000] font-[700]">
+              <label className="text-sm text-[#000] font-[700]">
                 {item.label}
-              </span>
+              </label>
             </div>
           );
         }
