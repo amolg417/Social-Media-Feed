@@ -4,7 +4,7 @@ const MyPost = () => {
   return (
     <div className="w-[47%] h-[60%] flex-shrink-0 flex-grow-0 relative">
       <img
-        src="https://s3-alpha-sig.figma.com/img/5760/ca9b/faaae9e15a4924b85a62195848d258eb?Expires=1736726400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=dRMW-yfRgtwI51CcXC0jMUmaS4nUCxxsU2wULrMQ0h25rLJD56VZxdRcKSUzLpyTAyYsgXIk4t1TBIeF8pdHVRVOMkSW4y-yHOBizZJSRXSdwUL~SdZPmh8hamJYL~CpfXJ3zEUoAF~SmKqAT85zFX6yw65ieSCSfe2QXm9IlNaTs9NmNllfSdBmHI19rAUPjK4gvguzgxv0AYa19L~s0fCP~WeQq7ANXdTpcl1vWVBhzoTbocU6~b2ZoKFpX6c2ofqIZKyHs4gvcaLwgSvRZpox3QDEKUAysEwwV61htrWQyIzlIM6wtu9a46LtCFVnb~9feQ-IJ2In82jnONsEJQ__"
+        src="https://img.freepik.com/free-photo/portrait-pensive-young-girl-making-notes_171337-1646.jpg?t=st=1736851954~exp=1736855554~hmac=e38105d8dedfdf24950469ef7af72436603fb4e6c2ce6c9c92bfacd3f54cf0d0&w=996"
         alt="post-image"
         className="w-full h-webkit-fill object-cover rounded-md"
       />

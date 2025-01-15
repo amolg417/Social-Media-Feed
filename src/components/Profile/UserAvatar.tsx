@@ -1,6 +1,15 @@
-import user from "../../assets/Profile/png/user.jpg"
+import defaultuser from "../../assets/Profile/png/default_user.png";
+import { useGlobalInfo } from "../../context/GlobalInfo";
 const UserAvatar = () => {
-  return <img src={user} alt="UserAvatar" className="w-full rounded-full object-cover aspect-square"/>;
+  const context = useGlobalInfo();
+  console.log(context?.user?.profile_img);
+  return (
+    <img
+      src={context?.user?.profile_img || defaultuser}
+      alt="UserAvatar"
+      className="w-full rounded-full object-cover aspect-square"
+    />
+  );
 };
 
 export default UserAvatar;

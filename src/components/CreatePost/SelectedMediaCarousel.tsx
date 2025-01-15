@@ -2,7 +2,11 @@ import Carousel from "react-material-ui-carousel";
 import image from "../../assets/Post/svg/image.svg";
 import deleteIcon from "../../assets/Post/svg/delete.svg";
 // import VideoPlayer from "../Feed/VideoPlayer";
-const SelectedMediaCarousel = () => {
+ type SelectedMediaCarouselProps={
+  media:File[]
+ }
+
+const SelectedMediaCarousel = ({media}:SelectedMediaCarouselProps) => {
   const items = [
     {
       id: 1,
@@ -19,7 +23,7 @@ const SelectedMediaCarousel = () => {
         <Carousel
           height={"92%"}
           swipe={false}
-          navButtonsAlwaysVisible={items.length>1}
+          navButtonsAlwaysVisible={media.length>1}
           indicators={items.length>1}
           autoPlay={false}
           navButtonsProps={{
@@ -44,7 +48,7 @@ const SelectedMediaCarousel = () => {
           }}
           className="image-container w-full h-full"
         >
-          {items.map((item) => (
+          {/* {media.map((item) => (
             <img
               src={item.url}
               key={item.id}
@@ -52,7 +56,7 @@ const SelectedMediaCarousel = () => {
             />
           ))}
           {/* <VideoPlayer/> */}
-        </Carousel>
+        </Carousel> 
         <div className="w-[11%] aspect-square rounded-full flex items-center justify-center bg-[#00000085] absolute right-3 bottom-10 z-20">
             <img src={deleteIcon} alt="deleteIcon" />
         </div>
