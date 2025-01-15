@@ -5,8 +5,9 @@ import camera from "../../assets/Post/svg/camera.svg";
 import folder from "../../assets/Post/svg/folder.svg";
 type MediaSelectionProps = {
   toggleCamera: () => void;
+  handleMedia:(e:File[])=>void
 };
-const MediaSelection = ({ toggleCamera }: MediaSelectionProps) => {
+const MediaSelection = ({ toggleCamera,handleMedia }: MediaSelectionProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const media = [
     {
@@ -29,6 +30,7 @@ const MediaSelection = ({ toggleCamera }: MediaSelectionProps) => {
       is_showing: false,
       onClickHandler: () => {
         fileInputRef.current?.click();
+        handleMedia(Array.from(fileInputRef.current?.files||[]))
       },
     },
     {
@@ -37,6 +39,7 @@ const MediaSelection = ({ toggleCamera }: MediaSelectionProps) => {
       is_showing: false,
       onClickHandler: () => {
         fileInputRef.current?.click();
+        handleMedia(Array.from(fileInputRef.current?.files||[]))
       },
     },
     {

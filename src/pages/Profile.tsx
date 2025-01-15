@@ -2,7 +2,10 @@ import EditPencil from "../components/Profile/EditPencil";
 import UserAvatar from "../components/Profile/UserAvatar";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import leftArrow from "../assets/Profile/svg/SmLeft.svg";
+import defaultcover from "../assets/Profile/png/defaultcover.png"
+import { useGlobalInfo } from "../context/GlobalInfo";
 const Profile = () => {
+  const context = useGlobalInfo()
   const location = useLocation();
   const navigate=useNavigate()
   let editpage = <></>;
@@ -11,18 +14,18 @@ const Profile = () => {
   switch (location.pathname) {
     case "/profile/edit":
       editpage = (
-        <span className="text-xl text-[#fff] text-nowrap font-[700]">
+        <span className="text-xl text-[#0000005d] text-nowrap font-[700]">
           Edit Profile
         </span>
       );
       editpencil = (
         <div className="w-6 absolute right-3 bottom-3">
-          <EditPencil />
+          <EditPencil editType="cover" />
         </div>
       );
       profileEdit = (
         <div className="w-8 absolute right-0 bottom-0">
-          <EditPencil />
+          <EditPencil editType="profile" />
         </div>
       );
       break;
@@ -34,12 +37,12 @@ const Profile = () => {
     <div className="w-full h-full">
       <div className="w-full h-[20%] relative">
         <img
-          src="https://s3-alpha-sig.figma.com/img/d4b7/bb5d/bd8b3943a763e1d2e13b607efc1e224e?Expires=1736726400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y9HApfL~MvzVs4nkSA-RHtgV1wS3KiqXZEWReB0DK8nlfEL-2wR34VPMgWZRvkUlr8~sDHENtpS0tsy2Tc2E9cZNXvOMEHTWY3-6sePNZ4E9Pq6CSukdzT1-P~Ar6gkeI-VC23yvUAeVsHow2DVW~QEsKVMJmeP2pDGe1mCYMIEJT5bjGhCDthTSMWsqGX19BjoAcRPePGPCr2w8wP32emgZTYb8Jz8tuHfku-MNTCnqRil4jN7xsWwajOZBK-XezyoRKtY7947RMrunVAfwQvjEZ467-CqBcAu8aov8e-yYM8AlQ-anCc~a5exSsdwxXfSt~QkghUaTdCMCmYjt3Q__"
+          src={context?.user.cover_img||defaultcover}
           alt="cover-image"
           className="w-full h-full object-cover rounded-bl-lg rounded-br-lg"
         />
         <div className="h-[10%] flex items-center gap-x-[4%] absolute top-5 left-3 z-100">
-          <img src={leftArrow} alt="left-arrow" onClick={()=>navigate(location.pathname==="/profile"?"/feed":"/profile")} />
+          <img src={leftArrow} alt="left-arrow" className="invert" onClick={()=>navigate(location.pathname==="/profile"?"/feed":"/profile")} />
           {editpage}
         </div>
         {editpencil}
