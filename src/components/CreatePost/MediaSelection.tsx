@@ -5,77 +5,76 @@ import camera from "../../assets/Post/svg/camera.svg";
 import folder from "../../assets/Post/svg/folder.svg";
 type MediaSelectionProps = {
   toggleCamera: () => void;
-  handleMedia:(e:File[])=>void
+  handleMedia: (e: File[]) => void;
 };
-const MediaSelection = ({ toggleCamera,handleMedia }: MediaSelectionProps) => {
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+const MediaSelection = ({ toggleCamera, handleMedia }: MediaSelectionProps) => {
+  const [showUploadOptions, setShowUploadOptions] = useState(false);
   const media = [
-    {
-      label: "Choose the file",
-      img: folder,
-      is_showing: true,
-      onClickHandler: () => {
-        setMediaItems((prev) => {
-          return prev.map((item) =>
-            item.label === "Choose the file"
-              ? { ...item, is_showing: false }
-              : { ...item, is_showing: true }
-          );
-        });
-      },
-    },
     {
       label: "Photos",
       img: image,
       is_showing: false,
-      onClickHandler: () => {
-        fileInputRef.current?.click();
-        handleMedia(Array.from(fileInputRef.current?.files||[]))
+      onClickHandler: (e:React.ChangeEvent<HTMLInputElement>) => {
+        handleMedia(Array.from(e.target?.files || []));
       },
     },
     {
       label: "Videos",
       img: video,
       is_showing: false,
-      onClickHandler: () => {
-        fileInputRef.current?.click();
-        handleMedia(Array.from(fileInputRef.current?.files||[]))
+      onClickHandler: (e:React.ChangeEvent<HTMLInputElement>) => {
+        handleMedia(Array.from(e.target?.files || []));
       },
-    },
-    {
-      label: "Camera",
-      img: camera,
-      is_showing: true,
-      onClickHandler: toggleCamera,
-    },
+    }
   ];
-  const [mediaItems, setMediaItems] = useState(media);
+
+  const chooseFileHandler = () => {
+    setShowUploadOptions(true);
+  };
+
   return (
     <div className="w-full pt-[5%] flex flex-col gap-y-3">
-      {mediaItems?.map((item) => {
-        if (item.is_showing) {
+      {!showUploadOptions ? (
+        <div
+          className="flex items-center gap-x-1 cursor-pointer"
+          onClick={chooseFileHandler}
+        >
+          <img src={folder} alt="Choose the file" className="w-[5%]" />
+          <label className="text-sm text-[#000] font-[700]">
+            Choose the file
+          </label>
+        </div>
+      ) : (
+        media?.map((item) => {
           return (
-            <div
+            <label
               key={item.label}
+              htmlFor={item.label+"id"}
               className="flex items-center gap-x-1 cursor-pointer"
-              onClick={item.onClickHandler}
             >
               <input
                 type="file"
                 name="Media"
                 className="hidden"
                 accept="image/*,video/*"
-                ref={fileInputRef}
+                id={item.label+"id"}
+                onChange={item.onClickHandler}
               />
               <img src={item.img} alt={item.label} className="w-[5%]" />
-              <label className="text-sm text-[#000] font-[700]">
+              <span className="text-sm text-[#000] font-[700]">
                 {item.label}
-              </label>
-            </div>
+              </span>
+            </label>
           );
-        }
-        return null;
-      })}
+        })
+      )}
+      <div
+        className="flex items-center gap-x-1 cursor-pointer"
+        onClick={toggleCamera}
+      >
+        <img src={camera} alt="Choose the file" className="w-[5%]" />
+        <label className="text-sm text-[#000] font-[700]">Camera</label>
+      </div>
     </div>
   );
 };

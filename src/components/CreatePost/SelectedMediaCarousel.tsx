@@ -50,11 +50,11 @@ const SelectedMediaCarousel = ({media}:SelectedMediaCarouselProps) => {
         >
           {/* {media.map((item) => (
             <img
-              src={item.url}
-              key={item.id}
+              src={item}
+              key={item}
               className="w-full h-full object-cover rounded-xl"
             />
-          ))}
+          ))} */}
           {/* <VideoPlayer/> */}
         </Carousel> 
         <div className="w-[11%] aspect-square rounded-full flex items-center justify-center bg-[#00000085] absolute right-3 bottom-10 z-20">
