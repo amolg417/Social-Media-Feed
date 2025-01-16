@@ -16,6 +16,7 @@ const CreatePost = () => {
   }, []);
 
   function handleMedia(files: File[]) {
+    console.log(files);
     const selectedfiles = Array.from(files || []);
     if (files.length) {
       setMedia((prev) => {
@@ -53,7 +54,11 @@ const CreatePost = () => {
           rows={11}
         ></textarea>
       </div>
-      <MediaSelection toggleCamera={toggleCamera} handleMedia={handleMedia} />
+      {media.length === 0 ? (
+        <MediaSelection toggleCamera={toggleCamera} handleMedia={handleMedia} />
+      ) : (
+        <></>
+      )}
       <div className="w-[92%] fixed bottom-[5%] left-[4%]">
         <FooterButton label="CREATE" />
       </div>
