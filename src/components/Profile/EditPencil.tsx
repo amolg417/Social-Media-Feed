@@ -24,7 +24,7 @@ const EditPencil = ({ editType }: EditPencilProps) => {
   }
 
   const handleFileChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e?.target?.files[0];
+    const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       upload(selectedFile);
     }
