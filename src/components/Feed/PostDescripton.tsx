@@ -1,12 +1,17 @@
 const PostDescripton = () => {
   return (
     <div className="w-full">
-      <p className="text-xs text-[#000]">
-        Just arrived in New York City! Excited to explore the sights, sounds,
-        and energy of this amazing place. 🗽
-      </p>
-      <span className="text-xs text-[#3C8DFF] mr-[1%]">#NYC</span>
-      <span className="text-xs text-[#3C8DFF]">#Travel</span>
+        {
+        "#hello world #123 #_hidden_ #good-day".split(/(#[A-Za-z0-9_-]+)/g).map((part, index) =>
+          part.startsWith("#") ? (
+            <span key={index} style={{ color: "blue", fontWeight: "bold" }}>
+              {part}
+            </span>
+          ) : (
+            part
+          )
+        )
+      }
     </div>
   );
 };

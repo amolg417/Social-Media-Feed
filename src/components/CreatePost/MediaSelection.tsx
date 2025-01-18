@@ -5,7 +5,7 @@ import camera from "../../assets/Post/svg/camera.svg";
 import folder from "../../assets/Post/svg/folder.svg";
 type MediaSelectionProps = {
   toggleCamera: () => void;
-  handleMedia: (e: File[]) => void;
+  handleMedia: (files: File[]) => void;
 };
 const MediaSelection = ({ toggleCamera, handleMedia }: MediaSelectionProps) => {
   const [showUploadOptions, setShowUploadOptions] = useState(false);
@@ -57,6 +57,7 @@ const MediaSelection = ({ toggleCamera, handleMedia }: MediaSelectionProps) => {
                 name="Media"
                 className="hidden"
                 accept="image/*,video/*"
+                multiple={true}
                 id={item.label+"id"}
                 onChange={item.onClickHandler}
               />

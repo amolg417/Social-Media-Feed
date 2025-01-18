@@ -3,18 +3,21 @@ import Webcam from "react-webcam";
 import leftArrow from "../../assets/Profile/svg/SmLeft.svg";
 import flipCamera from "../../assets/Post/svg/flip-camera.svg";
 import ReviewImage from "./ReviewImage";
+import { v4 as uuidv4 } from "uuid";
+
 type CameraSectionProps = {
   toggleCamera: () => void;
+  handleMedia: (files: File[]) => void;
 };
-const CameraSection = ({ toggleCamera }: CameraSectionProps) => {
+const CameraSection = ({ toggleCamera, handleMedia }: CameraSectionProps) => {
   const webcamRef = useRef<Webcam>(null);
   const [isFrontCamera, setIsFrontCamera] = useState(true);
   const [capturedImage, setCapturedImage] = useState<null | string>(null);
   const [reviewImage, setReviewImage] = useState(false);
 
   const handleReviewImage = useCallback((newValue: boolean) => {
-    if(newValue===false){
-      setCapturedImage(null)
+    if (newValue === false) {
+      setCapturedImage(null);
     }
     setReviewImage(newValue);
   }, []);
@@ -26,12 +29,39 @@ const CameraSection = ({ toggleCamera }: CameraSectionProps) => {
   const capture = useCallback(() => {
     if (webcamRef.current) {
       const imageSrc = webcamRef.current.getScreenshot();
+      console.log(imageSrc);
       setCapturedImage(imageSrc);
     }
   }, [webcamRef]);
+
+  const proceedToPost = useCallback((capturedImage: string) => {
+    const base64ToFile = (base64: string, fileName: string) => {
+      const [meta, content] = base64.split(",");
+      const mime = meta.match(/:(.*?);/)?.[1] || "image/jpeg";
+      const binary = atob(content);
+      const arrayBuffer = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) {
+        arrayBuffer[i] = binary.charCodeAt(i);
+      }
+      return new File([arrayBuffer], fileName, { type: mime });
+    };
+
+    const file = base64ToFile(capturedImage, `captured-${Date.now()}.jpg`);
+    handleMedia([file]);
+    toggleCamera();
+  }, []);
+
   return (
     <>
-      {reviewImage ? <ReviewImage imageSrc={capturedImage} baackToCamera={handleReviewImage}/> : <></>}
+      {reviewImage ? (
+        <ReviewImage
+          imageSrc={capturedImage}
+          baackToCamera={handleReviewImage}
+          proceedToPost={proceedToPost}
+        />
+      ) : (
+        <></>
+      )}
       <div className="w-full h-full flex flex-col items-center absolute top-0 left-0 bg-[#fff] z-50">
         <Webcam
           audio={false}

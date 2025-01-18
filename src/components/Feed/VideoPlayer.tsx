@@ -1,7 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-const VideoPlayer = () => {
+
+
+type VideoPlayerProps={
+  file:File
+}
+const VideoPlayer = ({file}:VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [mute, setMute] = useState<boolean>(true);
   const { ref, inView } = useInView({
@@ -26,7 +31,7 @@ const VideoPlayer = () => {
   return (
     <div className="w-full h-full relative" ref={ref}>
       <video
-        src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+        src={URL.createObjectURL(file)}
         muted={mute}
         ref={videoRef}
         className="w-full h-full object-cover rounded-xl"
