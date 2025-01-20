@@ -5,12 +5,15 @@ import FooterButton from "../components/Profile/FooterButton";
 import MediaSelection from "../components/CreatePost/MediaSelection";
 import { useNavigate } from "react-router-dom";
 import SelectedMediaCarousel from "../components/CreatePost/SelectedMediaCarousel";
+import { uploadMediaAndGetUrls } from "../apiuils/media";
+import { useGlobalInfo } from "../context/GlobalInfo";
+import { addRecord } from "../apiuils/post";
 
 const CreatePost = () => {
+  const context=useGlobalInfo()
   const [media, setMedia] = useState<File[]>([]);
   const [useCamera, setUseCamera] = useState(false);
   const [postDescription, setPostDescription] = useState("");
-  const textareaRef = useRef(null);
   const navigate = useNavigate();
   const toggleCamera = useCallback(() => {
     setUseCamera((prev) => !prev);
@@ -21,7 +24,6 @@ const CreatePost = () => {
       console.log("No files have been selected");
       return;
     }
-
     const selectedFiles = Array.from(files);
     setMedia((prev) => {
       const existingFiles = new Set(prev.map((file) => file.name + file.size));
@@ -33,6 +35,7 @@ const CreatePost = () => {
   };
 
   const deleteMedia = useCallback((fileName: string) => {
+    if (!fileName) return;
     setMedia((prev) => {
       return prev.filter((file) => file.name !== fileName);
     });
@@ -41,15 +44,26 @@ const CreatePost = () => {
   const handlePostDescription = useCallback((value: string) => {
     setPostDescription(value);
   }, []);
-  useEffect(() => {
-    if (textareaRef.current) {
-      // Save cursor position
-      const cursorPosition = textareaRef.current.selectionStart;
 
-      // Restore cursor position after updating the text
-      textareaRef.current.setSelectionRange(cursorPosition, cursorPosition);
+  async function createPost(){
+    try {
+      if(!context.user.uid)return;
+      let urlsData=await uploadMediaAndGetUrls(media);
+      const post={
+        media:urlsData,
+        description:postDescription,
+        user:`/Users/${context.user.uid}`,
+        likes:0,
+        createdAt:new Date()
+      }
+
+      await addRecord(post)
+    } catch (error) {
+      console.log("error",error)
     }
-  }, [postDescription]);
+
+  }
+
 
   return (
     <div className="w-full h-full px-[4%] py-[7%] relative">
@@ -111,7 +125,7 @@ const CreatePost = () => {
         <></>
       )}
       <div className="w-[92%] fixed bottom-[5%] left-[4%]">
-        <FooterButton label="CREATE" />
+        <FooterButton label="CREATE" onClickHandler={createPost} />
       </div>
     </div>
   );
