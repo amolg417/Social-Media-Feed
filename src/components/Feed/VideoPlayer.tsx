@@ -4,7 +4,7 @@ import { useInView } from "react-intersection-observer";
 
 
 type VideoPlayerProps={
-  file:File
+  file:File|string
 }
 const VideoPlayer = ({file}:VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -27,11 +27,11 @@ const VideoPlayer = ({file}:VideoPlayerProps) => {
       }
     }
   }, [inView]);
-
+  const videoSrc = typeof file === "string" ? file : URL.createObjectURL(file);
   return (
     <div className="w-full h-full relative" ref={ref}>
       <video
-        src={URL.createObjectURL(file)}
+        src={videoSrc}
         muted={mute}
         ref={videoRef}
         className="w-full h-full object-cover rounded-xl"

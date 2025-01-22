@@ -1,17 +1,28 @@
 import PostMediaContainer from "./PostMediaContainer";
 import PostDescripton from "./PostDescripton";
-// import PostFooter from "./PostFooter"; 
+// import PostFooter from "./PostFooter";
 import PostHeader from "./PostHeader";
 import { FastAverageColor } from "fast-average-color";
 import { useEffect, useState } from "react";
 import PostFooter from "./PostFooter";
+type mediaProps = {
+  type: "image" | "video";
+  url: string;
+};
 type PostProps = {
-  media: { type: "image" | "video"; url: string };
+  post: {
+    id: string;
+    user: string;
+    media: mediaProps[];
+    description: string;
+    likes: number;
+    createdAt: string;
+  };
+
   handleShareModal: (newVal: boolean) => void;
 };
-const Post = ({ media,handleShareModal }: PostProps) => {
+const Post = ({ post, handleShareModal }: PostProps) => {
   const [bgColor, setBgColor] = useState<string | null>(null);
-
   const lightenColor = (rgba: string): string => {
     const [r, g, b, a] = rgba
       .slice(5, -1)
@@ -25,28 +36,28 @@ const Post = ({ media,handleShareModal }: PostProps) => {
   };
 
   useEffect(() => {
-    if (media.type === "image") {
-      if (!localStorage.getItem(media.url)) {
+    if (post.media?.[0].type === "image") {
+      if (!localStorage.getItem(post.media?.[0].url)) {
         const fac = new FastAverageColor();
         fac
-          .getColorAsync(media.url)
+          .getColorAsync(post.media?.[0].url)
           .then((color) => {
             const lightenedColor = lightenColor(color.rgba); // Lighten the extracted color
             setBgColor(lightenedColor);
-            localStorage.setItem(media.url, lightenedColor);
+            localStorage.setItem(post.media?.[0].url, lightenedColor);
           })
           .catch((error) => console.error("Error extracting color:", error));
       } else {
-        setBgColor(localStorage.getItem(media.url));
+        setBgColor(localStorage.getItem(post.media?.[0].url));
       }
     }
-  }, [media]);
+  }, [post.media]);
 
   useEffect(() => {
-    if (media.type === "video") {
-      if (!localStorage.getItem(media.url)) {
+    if (post.media?.[0].type === "video") {
+      if (!localStorage.getItem(post.media?.[0].url)) {
         const video = document.createElement("video");
-        video.src = media.url;
+        video.src = post.media?.[0].url;
         video.crossOrigin = "anonymous";
         video.autoplay = true;
         video.currentTime = 3;
@@ -64,7 +75,7 @@ const Post = ({ media,handleShareModal }: PostProps) => {
               .then((color) => {
                 if (color.rgb !== "rgb(0,0,0)") {
                   setBgColor(color.rgb);
-                  localStorage.setItem(media.url, color.rgb);
+                  localStorage.setItem(post.media?.[0].url, color.rgb);
                 }
               })
               .catch((error) =>
@@ -75,10 +86,10 @@ const Post = ({ media,handleShareModal }: PostProps) => {
 
         video.load();
       } else {
-        setBgColor(localStorage.getItem(media.url));
+        setBgColor(localStorage.getItem(post.media?.[0].url));
       }
     }
-  }, [media]);
+  }, [post.media]);
 
   return (
     <div
@@ -86,9 +97,9 @@ const Post = ({ media,handleShareModal }: PostProps) => {
       className="w-full h-[65%] min-h-fit p-[3%] border rounded-3xl flex flex-col justify-between flex-shrink-0 flex-grow-0"
     >
       <PostHeader />
-      <PostDescripton />
-      <PostMediaContainer />
-      <PostFooter handleShareModal={handleShareModal} />
+      <PostDescripton description={post.description}/>
+      <PostMediaContainer media={post.media} />
+      <PostFooter handleShareModal={handleShareModal} likes={post.likes} />
     </div>
   );
 };

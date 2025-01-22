@@ -1,13 +1,14 @@
 import LikeIcon from "./LikeIcon";
 type PostFooterProps = {
-  handleShareModal: (newVal: boolean) => void;
+  handleShareModal: (newVal: boolean) => void,
+  likes:number
 };
-const PostFooter = ({ handleShareModal }: PostFooterProps) => {
+const PostFooter = ({ handleShareModal,likes }: PostFooterProps) => {
   return (
     <footer className="flex items-center justify-between">
       <div className="w-[50%] flex items-center gap-x-[4%]">
         <LikeIcon color={"red"} />
-        <span className="text-sm text-[#000]">67</span>
+        <span className="text-sm text-[#000]">{likes}</span>
       </div>
       <button
         className="w-[25%] px-[2%] py-[1%] bg-[#edc6f172] rounded-full flex items-center justify-center gap-x-[5%]"
