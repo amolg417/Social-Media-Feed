@@ -1,14 +1,15 @@
 import Carousel from "react-material-ui-carousel";
+import VideoPlayer from "./VideoPlayer";
 
-const ImageCarousel = () => {
-  type User = {
-    id: number;
-    url: string;
-  };
-  const items: User[] = [
-    { id: 1, url: "src/assets/Feed/png/slide1.jpg" },
-    { id: 2, url: "src/assets/Feed/png/slide2.jpg" },
-  ];
+type ImageCarouselProps = {
+  media: { type: string; url: string }[];
+};
+const ImageCarousel = ({media}:ImageCarouselProps) => {
+  console.log({media})
+  // const items: User[] = [
+  //   { id: 1, url: "src/assets/Feed/png/slide1.jpg" },
+  //   { id: 2, url: "src/assets/Feed/png/slide2.jpg" },
+  // ];
   return (
     <div className="w-full h-full">
       <Carousel
@@ -32,13 +33,17 @@ const ImageCarousel = () => {
         }}
         className="w-full h-full"
       >
-        {items.map((item) => (
-          <img
+        {media.map((item) => {
+          if(item.type==="image"){
+
+           return <img
             src={item.url}
-            key={item.id}
+            key={item.url}
             className="w-full h-[90%] object-contain rounded-xl"
-          />
-        ))}
+            />
+          }
+          return <VideoPlayer file={item.url} />
+        })}
       </Carousel>
     </div>
   );
