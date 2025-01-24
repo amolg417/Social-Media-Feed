@@ -17,6 +17,7 @@ type PostProps = {
     description: string;
     likes: number;
     createdAt: string;
+    userDetails:any
   };
 
   handleShareModal: (newVal: boolean) => void;
@@ -34,7 +35,7 @@ const Post = ({ post, handleShareModal }: PostProps) => {
     const newB = adjust(b);
     return `rgba(${newR}, ${newG}, ${newB}, ${a})`; // Return modified RGBA
   };
-
+ console.log(post.userDetails)
   useEffect(() => {
     if (post.media?.[0].type === "image") {
       if (!localStorage.getItem(post.media?.[0].url)) {
@@ -96,7 +97,7 @@ const Post = ({ post, handleShareModal }: PostProps) => {
       style={{ backgroundColor: bgColor || "#fff" }}
       className="w-full h-[65%] min-h-fit p-[3%] border rounded-3xl flex flex-col justify-between flex-shrink-0 flex-grow-0"
     >
-      <PostHeader />
+      <PostHeader userInfo={post.userDetails} postCreatedTime={post.createdAt}/>
       <PostDescripton description={post.description}/>
       <PostMediaContainer media={post.media} />
       <PostFooter handleShareModal={handleShareModal} likes={post.likes} />
