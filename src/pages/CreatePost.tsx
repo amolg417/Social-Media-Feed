@@ -10,7 +10,7 @@ import { useGlobalInfo } from "../context/GlobalInfo";
 import { addRecord } from "../apiuils/post";
 
 const CreatePost = () => {
-  const context=useGlobalInfo()
+  const context=useGlobalInfo();
   const [media, setMedia] = useState<File[]>([]);
   const [useCamera, setUseCamera] = useState(false);
   const [postDescription, setPostDescription] = useState("");
@@ -57,7 +57,8 @@ const CreatePost = () => {
         createdAt:new Date()
       }
 
-      await addRecord(post)
+      await addRecord(post);
+      navigate("/feed")
     } catch (error) {
       console.log("error",error)
     }
