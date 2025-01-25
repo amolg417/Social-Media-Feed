@@ -6,10 +6,10 @@ import App from "./App.tsx";
 import GlobalInfo from "./context/GlobalInfo.tsx";
 createRoot(document.getElementById("root")!).render(
   <GoogleOAuthProvider clientId={import.meta.env.VITE_CLIENT_ID}>
-    <StrictMode>
+    {/* <StrictMode> */}
       <GlobalInfo>
         <App />
       </GlobalInfo>
-    </StrictMode>
+    {/* </StrictMode> */}
   </GoogleOAuthProvider>
 );

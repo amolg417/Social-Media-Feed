@@ -1,4 +1,12 @@
-import { collection, addDoc, getDocs, getDoc,doc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  getDoc,
+  doc,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../congif/firebase";
 
 async function addRecord(record: Object) {
@@ -11,7 +19,6 @@ async function addRecord(record: Object) {
   }
 }
 
-
 async function getAllPosts() {
   try {
     const collectionRef = collection(db, "posts");
@@ -22,10 +29,8 @@ async function getAllPosts() {
         const postData = docItem.data();
         const userPath = postData.user;
 
-        // Extract user ID from the path
         const userId = userPath.split("/").pop();
 
-        // Fetch user details
         const userRef = doc(db, "Users", userId);
         const userSnap = await getDoc(userRef);
 
@@ -45,5 +50,30 @@ async function getAllPosts() {
   }
 }
 
+async function getPostsForUser(userId:string) {
+  try {
 
-export { addRecord, getAllPosts };
+    console.log(userId)
+    const collectionRef = collection(db, "posts");
+
+    // Query to filter posts by user
+    const userPostsQuery = query(collectionRef, where("user", "==", `/Users/${userId}`));
+
+    // Fetch all matching posts
+    const querySnapshot = await getDocs(userPostsQuery);
+
+    // Map the data to return the posts
+    const posts = querySnapshot.docs.map((docItem) => ({
+      id: docItem.id,
+      ...docItem.data(),
+    }));
+
+    console.log(`Retrieved posts for user ${userId}:`, posts);
+    return posts;
+  } catch (e) {
+    console.error("Error retrieving posts for user:", e);
+    return [];
+  }
+}
+
+export { addRecord, getAllPosts, getPostsForUser };

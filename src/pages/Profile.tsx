@@ -47,7 +47,7 @@ const Profile = () => {
         </div>
         {editpencil}
         <div className="w-[25%] absolute bottom-[-30%] left-4">
-          <UserAvatar />
+          <UserAvatar avatar={context.user.profile_img} />
           {profileEdit}
         </div>
       </div>

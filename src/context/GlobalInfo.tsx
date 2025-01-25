@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useState } from "react";
 import { GlobalContextType, UserType } from "../types/Types.types";
-
+import Cookies from "js-cookie";
 const globalContext = createContext<GlobalContextType | null>(null);
 
 export function useGlobalInfo() {
@@ -16,18 +16,30 @@ type GlobalInfoProps = {
 };
 
 const GlobalInfo = ({ children }: GlobalInfoProps) => {
-  const [user, setUser] = useState<UserType>({
-    uid: "",
-    email: "",
-    name: "",
-    description: "",
-    profile_img: "",
-    cover_img: "",
-    createdAt: "",
+  const [user, setUser] = useState<UserType>(() => {
+    const storedUser = Cookies.get("userInfo");
+    return storedUser
+      ? JSON.parse(storedUser)
+      : {
+          uid: "",
+          email: "",
+          name: "",
+          description: "",
+          profile_img: "",
+          cover_img: "",
+          createdAt: "",
+        };
   });
 
   const updateUser = useCallback((newValue: Partial<UserType>) => {
-    setUser((prevUser) => ({ ...prevUser, ...newValue }));
+    setUser((prevUser) => {
+      Cookies.set("userInfo", JSON.stringify({ ...prevUser, ...newValue }), {
+        expires: 7,
+        secure: true,
+        sameSite: "Lax",
+      });
+      return { ...prevUser, ...newValue };
+    });
   }, []);
 
   return (
