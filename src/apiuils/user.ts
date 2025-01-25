@@ -1,6 +1,6 @@
 import { db } from "../congif/firebase";
 import { doc, serverTimestamp, runTransaction } from "firebase/firestore";
-
+import Cookies from "js-cookie";
 async function handleUser(user: any) {
   const userRef = doc(db, "Users", user.uid);
 
@@ -8,7 +8,6 @@ async function handleUser(user: any) {
     const userData = await runTransaction(db, async (transaction) => {
       const docSnapshot = await transaction.get(userRef);
       if (!docSnapshot.exists()) {
-        // User does not exist; create a new one
         const newUser = {
           uid: user.uid,
           email: user.email,
@@ -26,6 +25,12 @@ async function handleUser(user: any) {
       } else {
         return docSnapshot.data();
       }
+    });
+
+    Cookies.set("userInfo", JSON.stringify(userData), {
+      expires: 7, 
+      secure: true, 
+      sameSite: "Lax", 
     });
 
     return userData;

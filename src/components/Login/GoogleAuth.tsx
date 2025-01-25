@@ -5,6 +5,7 @@ import google from "../../assets/Login/svg/google.svg";
 import { auth, googleProvider } from "../../congif/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { useGlobalInfo } from "../../context/GlobalInfo";
+import toast from "react-hot-toast";
 const GoogleAuth = () => {
   const navigate = useNavigate();
   const context=useGlobalInfo()
@@ -16,6 +17,7 @@ const GoogleAuth = () => {
       if (user) {
         const result = await handleUser(user);
         context?.updateUser(result)
+        toast.success("Login successfull")
         navigate("/feed");
       }
     } catch (error) {}

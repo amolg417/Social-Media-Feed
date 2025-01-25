@@ -19,11 +19,9 @@ async function handleUpload(selectedFile: any, mediaType: string) {
       throw new Error("Something went wrong");
     }
     const data = await response.json();
-
-    console.log("File uploaded successfully:", data);
     return data.secure_url;
   } catch (error) {
-    console.error("Error uploading file:", error);
+    throw new Error("Error Occured uploading file");
   }
 }
 
@@ -33,13 +31,11 @@ async function uploadMediaAndGetUrls(media: File[]) {
     for (let i = 0; i < media.length; i++) {
       let mediaType = media[i]?.type.split("/")[0];
       const url = await handleUpload(media[i], mediaType);
-    
-      console.log(url);
       result.push({ url: url, type: mediaType });
     }
     return result;
   } catch (error) {
-    console.error("Error making API call:", error);
+    throw new Error("Error Occured uploading file");
   }
 }
 

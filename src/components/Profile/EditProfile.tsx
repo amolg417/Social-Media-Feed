@@ -3,30 +3,42 @@ import FooterButton from "./FooterButton";
 import { useGlobalInfo } from "../../context/GlobalInfo";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../congif/firebase";
+import toast from "react-hot-toast";
 
 const EditProfile = () => {
   const context = useGlobalInfo();
   const [userInfo, setUserInfo] = useState({
     name: context.user.name || "",
-    description: context.user.description,
+    description: context.user.description || "",
   });
 
-  const updateUserInfo = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUserInfo((prev) => ({ ...prev, [name]: value }));
-  }, []);
+  const updateUserInfo = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+      setUserInfo((prev) => ({ ...prev, [name]: value }));
+    },
+    []
+  );
 
-  const updateUserInformation=useCallback(async()=>{
-
+  const updateUserInformation = useCallback(async () => {
     try {
+      
+      toast.loading("Updating user details");
       const userRef = doc(db, "Users", context.user.uid); // Reference to the specific user document
-      await updateDoc(userRef, {...context.user,name:userInfo.name,description:userInfo.description});
-      console.log("User info updated successfully!");
-    } catch (error:any) {
-      console.error("Error updating user info:", error.message);
+      const updatedUserDetails = {
+        ...context.user,
+        name: userInfo.name,
+        description: userInfo.description,
+      };
+      await updateDoc(userRef, updatedUserDetails);
+      context.updateUser(updatedUserDetails)
+      toast.dismiss()
+      toast.success("User details updated successfully!");
+    } catch (error: any) {
+      toast.dismiss()
+      toast.error("Failed to update user details");
     }
-
-  },[context.user])
+  }, [context.user,userInfo]);
 
   return (
     <div className="w-full h-full flex flex-col justify-between pt-[17%] pb-[10%]">

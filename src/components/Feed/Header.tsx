@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <div className="w-full flex items-center gap-x-[3%] select-none">
       <div className="w-[15%]" onClick={()=>navigate("/profile")}>
-        <UserAvatar />
+        <UserAvatar avatar={context.user.profile_img} />
       </div>
       <div className="flex flex-col justify-center">
         <span className="text-[10px] text-[#a9a9a9]">Welcome Back,</span>
