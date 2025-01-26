@@ -5,10 +5,12 @@ import PostHeader from "./PostHeader";
 import { FastAverageColor } from "fast-average-color";
 import { useEffect, useState } from "react";
 import PostFooter from "./PostFooter";
+
 type mediaProps = {
   type: "image" | "video";
   url: string;
 };
+
 type PostProps = {
   post: {
     id: string;
@@ -17,11 +19,12 @@ type PostProps = {
     description: string;
     likes: number;
     createdAt: string;
-    userDetails:any
+    userDetails: any;
   };
 
   handleShareModal: (newVal: boolean) => void;
 };
+
 const Post = ({ post, handleShareModal }: PostProps) => {
   const [bgColor, setBgColor] = useState<string | null>(null);
   const lightenColor = (rgba: string): string => {
@@ -33,9 +36,9 @@ const Post = ({ post, handleShareModal }: PostProps) => {
     const newR = adjust(r);
     const newG = adjust(g);
     const newB = adjust(b);
-    return `rgba(${newR}, ${newG}, ${newB}, ${a})`; // Return modified RGBA
+    return `rgba(${newR}, ${newG}, ${newB}, ${a})`;
   };
- console.log(post.userDetails)
+
   useEffect(() => {
     if (post.media?.[0].type === "image") {
       if (!localStorage.getItem(post.media?.[0].url)) {
@@ -43,7 +46,7 @@ const Post = ({ post, handleShareModal }: PostProps) => {
         fac
           .getColorAsync(post.media?.[0].url)
           .then((color) => {
-            const lightenedColor = lightenColor(color.rgba); // Lighten the extracted color
+            const lightenedColor = lightenColor(color.rgba); 
             setBgColor(lightenedColor);
             localStorage.setItem(post.media?.[0].url, lightenedColor);
           })
@@ -97,8 +100,11 @@ const Post = ({ post, handleShareModal }: PostProps) => {
       style={{ backgroundColor: bgColor || "#fff" }}
       className="w-full h-[65%] min-h-fit p-[3%] border rounded-3xl flex flex-col justify-between flex-shrink-0 flex-grow-0"
     >
-      <PostHeader userInfo={post.userDetails} postCreatedTime={post.createdAt}/>
-      <PostDescripton description={post.description}/>
+      <PostHeader
+        userInfo={post.userDetails}
+        postCreatedTime={post.createdAt}
+      />
+      <PostDescripton description={post.description} />
       <PostMediaContainer media={post.media} />
       <PostFooter handleShareModal={handleShareModal} likes={post.likes} />
     </div>

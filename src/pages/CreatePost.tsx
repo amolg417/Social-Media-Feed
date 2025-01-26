@@ -8,11 +8,14 @@ import SelectedMediaCarousel from "../components/CreatePost/SelectedMediaCarouse
 import { uploadMediaAndGetUrls } from "../apiuils/media";
 import { useGlobalInfo } from "../context/GlobalInfo";
 import { addRecord } from "../apiuils/post";
+import toast from "react-hot-toast";
+import TextArea from "../components/CreatePost/TextArea";
 
 const CreatePost = () => {
-  const context=useGlobalInfo();
+  const context = useGlobalInfo();
   const [media, setMedia] = useState<File[]>([]);
   const [useCamera, setUseCamera] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [postDescription, setPostDescription] = useState("");
   const navigate = useNavigate();
   const toggleCamera = useCallback(() => {
@@ -21,7 +24,7 @@ const CreatePost = () => {
 
   const handleMedia = (files: FileList | null) => {
     if (!files || files.length === 0) {
-      console.log("No files have been selected");
+      toast.error("No files have been selected");
       return;
     }
     const selectedFiles = Array.from(files);
@@ -45,26 +48,30 @@ const CreatePost = () => {
     setPostDescription(value);
   }, []);
 
-  async function createPost(){
+  const createPost = useCallback(async () => {
+    if (isLoading) return;
     try {
-      if(!context.user.uid)return;
-      let urlsData=await uploadMediaAndGetUrls(media);
-      const post={
-        media:urlsData,
-        description:postDescription,
-        user:`/Users/${context.user.uid}`,
-        likes:0,
-        createdAt:new Date()
-      }
-
+      setIsLoading(true);
+      toast.loading("Creating post");
+      if (!context.user.uid) return;
+      let urlsData = await uploadMediaAndGetUrls(media);
+      const post = {
+        media: urlsData,
+        description: postDescription,
+        user: `/Users/${context.user.uid}`,
+        likes: 0,
+        createdAt: new Date(),
+      };
       await addRecord(post);
-      navigate("/feed")
+      setIsLoading(false);
+      toast.dismiss();
+      navigate("/feed");
     } catch (error) {
-      console.log("error",error)
+      setIsLoading(false);
+      toast.dismiss();
+      toast.error("Something went wrong");
     }
-
-  }
-
+  }, [postDescription, isLoading, context.user.uid, media]);
 
   return (
     <div className="w-full h-full px-[4%] py-[7%] relative">
@@ -87,38 +94,10 @@ const CreatePost = () => {
       ) : (
         <></>
       )}
-      <div className="w-full relative">
-        {/* Highlighted content */}
-        <div
-          className="w-full text-sm py-[5%] px-[2%] rounded-md absolute top-0 left-0 h-fit outline-none z-[0] pointer-events-none"
-          style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
-        >
-          {postDescription.split(/(#[A-Za-z0-9_-]+)/g).map((part, index) =>
-            part.startsWith("#") ? (
-              <span key={index} style={{ color: "blue", fontWeight: "bold" }}>
-                {part}
-              </span>
-            ) : (
-              part
-            )
-          )}
-        </div>
-
-        {/* Editable textarea */}
-        <textarea
-          // ref={textareaRef}
-          name="description"
-          id="description"
-          className="w-full text-sm py-[5%] px-[2%] rounded-md resize-none outline-none bg-transparent text-transparent caret-black z-[1]"
-          placeholder="What’s on your mind?"
-          rows={11}
-          value={postDescription}
-          onChange={(e) => handlePostDescription(e.target.value)}
-          style={{
-            position: "relative",
-          }}
-        ></textarea>
-      </div>
+      <TextArea
+        postDescription={postDescription}
+        handlePostDescription={handlePostDescription}
+      />
 
       {media.length === 0 ? (
         <MediaSelection toggleCamera={toggleCamera} handleMedia={handleMedia} />

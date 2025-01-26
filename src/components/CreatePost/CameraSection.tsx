@@ -3,11 +3,10 @@ import Webcam from "react-webcam";
 import leftArrow from "../../assets/Profile/svg/SmLeft.svg";
 import flipCamera from "../../assets/Post/svg/flip-camera.svg";
 import ReviewImage from "./ReviewImage";
-import { v4 as uuidv4 } from "uuid";
 
 type CameraSectionProps = {
   toggleCamera: () => void;
-  handleMedia: (files: File[]) => void;
+  handleMedia: (files: FileList | null) => void;
 };
 const CameraSection = ({ toggleCamera, handleMedia }: CameraSectionProps) => {
   const webcamRef = useRef<Webcam>(null);
