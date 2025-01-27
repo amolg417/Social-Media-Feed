@@ -6,6 +6,10 @@ import {
   doc,
   query,
   where,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  increment
 } from "firebase/firestore";
 import { db } from "../congif/firebase";
 
@@ -76,4 +80,26 @@ async function getPostsForUser(userId:string) {
   }
 }
 
-export { addRecord, getAllPosts, getPostsForUser };
+
+
+const toggleLikePost = async (postId: string, userId: string, isLiked: boolean) => {
+  console.log(userId,postId)
+  if (!userId || !postId) {
+    console.error("Invalid userId or postId");
+    return;
+  }
+
+  const postRef = doc(db, "posts", postId);
+
+  try {
+    // Ensure `likedBy` exists as an array in Firestore
+    await updateDoc(postRef, {
+      likes: increment(isLiked ? -1 : 1),
+      likedBy: isLiked ? arrayRemove(userId) : arrayUnion(userId),
+    });
+  } catch (error) {
+    throw new Error("something went wrong")
+  }
+};
+
+export { addRecord, getAllPosts, getPostsForUser,toggleLikePost };
