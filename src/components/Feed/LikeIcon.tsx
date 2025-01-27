@@ -11,6 +11,7 @@ const LikeIcon = ({ color = "red",width="w-[15%]" }: LikeIconProps) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={width}
+      stroke="red"
     >
       <path
         fill-rule="evenodd"

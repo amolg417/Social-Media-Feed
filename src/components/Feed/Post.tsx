@@ -5,6 +5,7 @@ import PostHeader from "./PostHeader";
 import { FastAverageColor } from "fast-average-color";
 import { useEffect, useState } from "react";
 import PostFooter from "./PostFooter";
+import { useGlobalInfo } from "../../context/GlobalInfo";
 
 type mediaProps = {
   type: "image" | "video";
@@ -20,12 +21,14 @@ type PostProps = {
     likes: number;
     createdAt: string;
     userDetails: any;
+    likedBy: string[];
   };
 
   handleShareModal: (newVal: boolean) => void;
 };
 
 const Post = ({ post, handleShareModal }: PostProps) => {
+  const context=useGlobalInfo()
   const [bgColor, setBgColor] = useState<string | null>(null);
   const lightenColor = (rgba: string): string => {
     const [r, g, b, a] = rgba
@@ -46,7 +49,7 @@ const Post = ({ post, handleShareModal }: PostProps) => {
         fac
           .getColorAsync(post.media?.[0].url)
           .then((color) => {
-            const lightenedColor = lightenColor(color.rgba); 
+            const lightenedColor = lightenColor(color.rgba);
             setBgColor(lightenedColor);
             localStorage.setItem(post.media?.[0].url, lightenedColor);
           })
@@ -106,7 +109,15 @@ const Post = ({ post, handleShareModal }: PostProps) => {
       />
       <PostDescripton description={post.description} />
       <PostMediaContainer media={post.media} />
-      <PostFooter handleShareModal={handleShareModal} likes={post.likes} />
+      <PostFooter
+        handleShareModal={handleShareModal}
+        post={{
+          likesCount: post.likes,
+          postId: post.id,
+          likedBy: post.likedBy,
+          userId: context.user.uid,
+        }}
+      />
     </div>
   );
 };
