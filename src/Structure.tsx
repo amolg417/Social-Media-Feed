@@ -6,6 +6,7 @@ import Profile from "./pages/Profile";
 import ProfileInfo from "./components/Profile/ProfileInfo";
 import EditProfile from "./components/Profile/EditProfile";
 import CreatePost from "./pages/CreatePost";
+import AuthVerify from "./components/hocs/AuthVerify";
 const Structure = () => {
   return (
     <>
@@ -17,12 +18,21 @@ const Structure = () => {
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/feed" element={<Feed />} />
-          <Route path="/profile" element={<Profile />}>
-            <Route index element={<ProfileInfo />} />
-            <Route path="edit" element={<EditProfile />} />
+          <Route path="/feed" element={<AuthVerify Component={<Feed />} />} />
+          <Route
+            path="/profile"
+            element={<AuthVerify Component={<Profile />} />}
+          >
+            <Route index element={<AuthVerify Component={<ProfileInfo />} />} />
+            <Route
+              path="edit"
+              element={<AuthVerify Component={<EditProfile />} />}
+            />
           </Route>
-          <Route path="/post" element={<CreatePost />} />
+          <Route
+            path="/post"
+            element={<AuthVerify Component={<CreatePost />} />}
+          />
         </Routes>
       </Router>
     </>

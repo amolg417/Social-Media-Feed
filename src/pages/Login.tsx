@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
   setTimeout(() => {
-    const storedUser = JSON.parse(Cookies.get("userInfo"));
-    if (Object.keys(storedUser).length) {
+    const storedUser = JSON.parse(Cookies.get("userInfo")||"{}");
+    if (storedUser.uid) {
       navigate("/feed");
     }
   }, 1000);
