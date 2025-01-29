@@ -4,8 +4,8 @@ import VideoPlayer from "./VideoPlayer";
 type ImageCarouselProps = {
   media: { type: string; url: string }[];
 };
-const ImageCarousel = ({media}:ImageCarouselProps) => {
-  console.log({media})
+const ImageCarousel = ({ media }: ImageCarouselProps) => {
+  console.log({ media });
   // const items: User[] = [
   //   { id: 1, url: "src/assets/Feed/png/slide1.jpg" },
   //   { id: 2, url: "src/assets/Feed/png/slide2.jpg" },
@@ -15,7 +15,7 @@ const ImageCarousel = ({media}:ImageCarouselProps) => {
       <Carousel
         height={"100%"}
         swipe={false}
-        navButtonsAlwaysVisible={true}
+        navButtonsAlwaysVisible={media.length > 1}
         autoPlay={false}
         navButtonsProps={{
           style: {
@@ -29,20 +29,22 @@ const ImageCarousel = ({media}:ImageCarouselProps) => {
           style: {
             top: "47%",
             transform: "translateY(-50%)",
+            display:media.length > 1?"block":"none"
           },
         }}
         className="w-full h-full"
       >
         {media.map((item) => {
-          if(item.type==="image"){
-
-           return <img
-            src={item.url}
-            key={item.url}
-            className="w-full h-[90%] object-contain rounded-xl"
-            />
+          if (item.type === "image") {
+            return (
+              <img
+                src={item.url}
+                key={item.url}
+                className="w-full h-[90%] object-contain rounded-xl"
+              />
+            );
           }
-          return <VideoPlayer file={item.url} />
+          return <VideoPlayer file={item.url} />;
         })}
       </Carousel>
     </div>

@@ -25,7 +25,7 @@ const MyPost = ({description,likes,postImg,type}:myPostProps) => {
       >
         <h5 className="text-sm text-[#fff] font-[500] line-clamp-[1]">{description}</h5>
         <div className="w-[50%] flex items-center gap-x-[4%]">
-          <LikeIcon color={"white"} width="w-[20%]" />
+          <LikeIcon color={"red"} width="w-[20%]" />
           <span className="text-xs text-[#fff]">{likes}</span>
         </div>
       </div>
