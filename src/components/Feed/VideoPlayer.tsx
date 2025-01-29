@@ -34,7 +34,7 @@ const VideoPlayer = ({file}:VideoPlayerProps) => {
         src={videoSrc}
         muted={mute}
         ref={videoRef}
-        className="w-full h-full object-cover rounded-xl"
+        className="w-full h-full object-contain rounded-xl"
       ></video>
       <img
         src={
@@ -43,7 +43,7 @@ const VideoPlayer = ({file}:VideoPlayerProps) => {
             : "src/assets/Feed/svg/Volume.svg"
         }
         alt="speaker"
-        className="w-[5%] absolute right-2 bottom-2 cursor-pointer"
+        className="w-[5%] absolute right-2 bottom-2 cursor-pointer z-[100]"
         onClick={handleSound}
       />
     </div>
