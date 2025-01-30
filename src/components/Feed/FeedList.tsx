@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import CreatePostButton from "../CreatePost/CreatePostButton";
 import Post from "./Post";
 import { getAllPosts } from "../../apiuils/post";
+import toast from "react-hot-toast";
 
 type FeedListProps = {
   handleShareModal: (newVal: boolean) => void;
@@ -9,9 +10,15 @@ type FeedListProps = {
 const FeedList = ({ handleShareModal }: FeedListProps) => {
   const [posts, setPosts] = useState([]);
   const getPost = useCallback(async () => {
-    let Allposts = await getAllPosts();
-    console.log({Allposts})
-    setPosts(Allposts);
+    try {
+      toast.loading("Loading posts...")
+      let Allposts = await getAllPosts();
+      setPosts(Allposts);
+      toast.dismiss()
+    } catch (error) {
+      toast.dismiss()
+      toast.error("Failed to get posts")
+    }
   }, []);
   useEffect(() => {
     getPost();
