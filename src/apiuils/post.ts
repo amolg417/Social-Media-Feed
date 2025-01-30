@@ -9,7 +9,8 @@ import {
   updateDoc,
   arrayUnion,
   arrayRemove,
-  increment
+  increment,
+  orderBy
 } from "firebase/firestore";
 import { db } from "../congif/firebase";
 
@@ -25,8 +26,10 @@ async function addRecord(record: Object) {
 
 async function getAllPosts() {
   try {
+    // Order posts by createdAt in descending order (most recent first)
     const collectionRef = collection(db, "posts");
-    const querySnapshot = await getDocs(collectionRef);
+    const q = query(collectionRef, orderBy("createdAt", "desc"));
+    const querySnapshot = await getDocs(q);
 
     const posts = await Promise.all(
       querySnapshot.docs.map(async (docItem) => {
@@ -46,11 +49,9 @@ async function getAllPosts() {
       })
     );
 
-    console.log("Retrieved posts with user details:", posts);
     return posts;
-  } catch (e) {
-    console.error("Error retrieving posts with user details:", e);
-    return [];
+  } catch (error) {
+    throw new Error("Error fetching posts:");
   }
 }
 
